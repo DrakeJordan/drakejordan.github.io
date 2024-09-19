@@ -2,5 +2,6 @@
 
 ## Demos
 - [Lines](lines)
+- [Interactive Scene](interactive-scene)
 
 ## Projects
