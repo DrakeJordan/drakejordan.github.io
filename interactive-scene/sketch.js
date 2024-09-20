@@ -6,18 +6,18 @@
 // - describe what you did to take this project "above and beyond"
 
 
-let gameState = 0;
+let gameState = "startScreen";
 
 let bobX = 0;
 let bobY = 0;
 let bobW = 30;
 let bobH = 30;
-let bobSpeed = 12;
+let bobSpeed = 10;
 
 let strokeColor = 0;
-let boundWidth = 14;
+let boundWidth = 20;
 
-let edgeOffset = 48;
+let edgeOffset = 17;
 
 let backgroundColor = 220;
 
@@ -30,16 +30,19 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  bobX = height / 2 + bobW + bobW / 2;
-  bobX = height / 2 + bobW + bobW / 2;
+  bobX = height / 2;
 }
 
 function changeGameState() {
-  if (gameState === 0 && mouseIsPressed) {
-    gameState = 1;
+  if (gameState === "startScreen" && mouseIsPressed) {
+    gameState = "game";
   }
-  if (gameState === 0 && keyIsDown(73)) {
+  if (gameState === "startScreen" && keyIsDown(73)) {
+    gameState = "instructions";
+  } else if (gameState === "instructions" && keyIsDown(8)) {
+    gameState = "startScreen"
   }
+
 }
 
 function startScreen() {
@@ -76,14 +79,14 @@ function moveBob() {
   }
 
   //Move right
-  if (bobX < width - edgeOffset) {
+  if (bobX < width - edgeOffset - bobH) {
     if (keyIsDown(39) || keyIsDown(68)) {
       bobX += bobSpeed;
     }
   }
 
-  //Move left
-  if (bobX > 9) {
+  //Move lefta
+  if (bobX > edgeOffset ) {
     if (keyIsDown(37) || keyIsDown(65)) {
       bobX -= bobSpeed;
     }
@@ -112,16 +115,27 @@ function drawBob() {
   rect(bobX, bobY, bobH, bobW);
 }
 
+function debugInfo() {
+  if (keyIsDown(189)) {
+  text(
+    "DEBUG: " + gameState,
+    15,
+    30
+  );
+}
+}
+
 function draw() {
   background(backgroundColor);
-
   changeGameState();
-
-  if (gameState === 0) {
+  debugInfo();
+  if (gameState === "startScreen") {
     startScreen();
-  } else {
+  } else if (gameState === "game") {
     drawBob();
     moveBob();
     drawBounds();
+  } else if (gameState === "instructions") {
+    instructions();
   }
 }
