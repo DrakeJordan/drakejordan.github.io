@@ -1,3 +1,9 @@
+let bobX = 0;
+let bobY = 0;
+let bobW = 30;
+let bobH = 30;
+let bobSpeed = 10;
+
 function moveBob() {
     //Have bob drop at start
     if (bobY <= height - 46) {

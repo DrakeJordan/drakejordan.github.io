@@ -8,12 +8,6 @@
 
 let gameState = "startScreen";
 
-let bobX = 0;
-let bobY = 0;
-let bobW = 30;
-let bobH = 30;
-let bobSpeed = 10;
-
 let strokeColor = 0;
 let boundWidth = 20;
 
@@ -105,9 +99,14 @@ function draw() {
   if (gameState === "startScreen") {
     startScreen();
   } else if (gameState === "game") {
+    dropSquare(20, 20, '', 20)
     drawBob();
     moveBob();
     drawBounds();
+
+    moveProjectileLines();
+    dropSquare(20, 'b', 20)
+    dropSquare(70, 'b', 20)
   } else if (gameState === "instructions") {
     instructions();
   }
