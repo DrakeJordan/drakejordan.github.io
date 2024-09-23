@@ -33,7 +33,8 @@ function changeGameState() {
   }
   if (gameState === "startScreen" && keyIsDown(73)) {
     gameState = "instructions";
-  } else if (gameState === "instructions" && keyIsDown(8)) {
+  } 
+  else if (gameState === "instructions" && keyIsDown(8)) {
     gameState = "startScreen"
   }
 
@@ -99,14 +100,11 @@ function draw() {
   if (gameState === "startScreen") {
     startScreen();
   } else if (gameState === "game") {
-    dropSquare(20, 20, '', 20)
     drawBob();
     moveBob();
     drawBounds();
-
     moveProjectileLines();
-    dropSquare(20, 'b', 20)
-    dropSquare(70, 'b', 20)
+    debugRow();
   } else if (gameState === "instructions") {
     instructions();
   }
