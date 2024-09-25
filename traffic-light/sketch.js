@@ -22,7 +22,7 @@ function drawOutlineOfLights() {
   //box
   rectMode(CENTER);
   fill(0);
-  rect(width/2, height/2, 75, 200, 10);
+  rect(width/2, height/2, 75, 200, 12);
 }
 
 function switchLightsIfNeeded() {
@@ -49,7 +49,7 @@ function switchLightsIfNeeded() {
   }
 }
 
-function drawLights(red, yellow, green) {
+function drawLights() {
 if (color === 2) {
   fill("red");
 } else {
