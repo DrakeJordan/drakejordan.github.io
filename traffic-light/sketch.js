@@ -1,12 +1,15 @@
-// Traffic Light Starter Code
+// Traffic Light Demo
 // Drake Jordan
 // 9/24/2024
 
 // GOAL: make a 'traffic light' simulator. For now, just have the light
 // changing according to time. You may want to investigate the millis()
 // function at https://p5js.org/reference/#/p5/millis
-let color = 0;
+
+let selectedColor = 0;
 let lastSwitchedTime = 0;
+const YELLOW_LIGHT_DURATION = 2000;
+const RED_GREEN_LIGHT_DURATION = 4000;
 
 function setup() {
   createCanvas(600, 600);
@@ -14,11 +17,11 @@ function setup() {
 
 function draw() {
   background(255);
-  drawOutlineOfLights();
+  drawLightBox();
   switchLightsIfNeeded();
 }
 
-function drawOutlineOfLights() {
+function drawLightBox() {
   //box
   rectMode(CENTER);
   fill(0);
@@ -27,46 +30,45 @@ function drawOutlineOfLights() {
 
 function switchLightsIfNeeded() {
 
-    drawLights(false, false, true);
+  function checkAndSwitch(waitTime) {
+    if (millis() >= lastSwitchedTime + waitTime) {
+      selectedColor += 1;
+      lastSwitchedTime = millis();
+    }
+  }
+
+  drawLights(false, false, true);
     
-    if (color === 0) {
-    if (millis() >= lastSwitchedTime + 4000) {
-      color += 1;
-      lastSwitchedTime = millis();
-    }
-  } else if (color === 1) {
-    if (millis() >= lastSwitchedTime + 2000) {
-      color += 1;
-      lastSwitchedTime = millis();
-    }
-  } else if (color === 2) {
-    if (millis() >= lastSwitchedTime + 4000) {
-      color += 1;
-      lastSwitchedTime = millis();
-    }
-  } else if (color === 3) {
-    color = 0;
+  if (selectedColor === 0) {
+    checkAndSwitch(RED_GREEN_LIGHT_DURATION);
+  }
+  else if (selectedColor === 1) {
+    checkAndSwitch(YELLOW_LIGHT_DURATION);
+  }
+  else if (selectedColor === 2) {
+    checkAndSwitch(RED_GREEN_LIGHT_DURATION);
+  }
+  else if (selectedColor === 3) {
+    selectedColor = 0;
   }
 }
 
 function drawLights() {
-if (color === 2) {
-  fill("red");
-} else {
-  fill(255);
-}
+  function fillLight(color, selection) {
+    if (selectedColor === selection) {
+      fill(color);
+    }
+    else {
+      fill(255);
+    }
+  }
+
+  fillLight("red", 2);
   ellipse(width/2, height/2 - 65, 50, 50);
 
-if (color === 1) {
-  fill("yellow");
-}else {
-  fill(255);
-}
+  fillLight("yellow", 1);
   ellipse(width/2, height/2, 50, 50);
-if (color === 0) {
-  fill("green"); 
-} else {
-  fill(255);
-}
+
+  fillLight("green", 0);
   ellipse(width/2, height/2 + 65, 50, 50);
 }

@@ -9,13 +9,17 @@
 let gameState = "startScreen";
 
 let strokeColor = 0;
-let boundWidth = 20;
+let boundWidth = 18;
 
-let edgeOffset = 17;
+let edgeOffset = 16;
 
 let backgroundColor = 220;
 
 let font;
+let regular;
+let semibold;
+
+let gameOffsetTime;
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
@@ -30,12 +34,13 @@ function setup() {
 function changeGameState() {
   if (gameState === "startScreen" && mouseIsPressed) {
     gameState = "game";
+    gameOffsetTime = millis();
   }
   if (gameState === "startScreen" && keyIsDown(73)) {
     gameState = "instructions";
   } 
   else if (gameState === "instructions" && keyIsDown(8)) {
-    gameState = "startScreen"
+    gameState = "startScreen";
   }
 
 }
@@ -51,7 +56,7 @@ function startScreen() {
   textSize(20);
   textFont(regular);
   text(
-    'Click anywhere to start, or press "i" for instructions.',
+    "Click anywhere to start, or press \"i\" for instructions.",
     width / 2 - 203,
     height - 50
   );
@@ -61,7 +66,8 @@ function mouseWheel(event) {
   if (event.delta > 0) {
     backgroundColor = 0;
     strokeColor = 220;
-  } else {
+  }
+  else {
     backgroundColor = 220;
     strokeColor = 0;
   }
@@ -85,12 +91,12 @@ function drawBounds() {
 
 function debugInfo() {
   if (keyIsDown(189)) {
-  text(
-    "DEBUG: " + gameState,
-    15,
-    30
-  );
-}
+    text(
+      "DEBUG: " + gameState + " TIME: " + Math.round(millis()) + " GSTART:" + Math.round(gameOffsetTime) + " STAGE:" + projectileStage ,
+      15,
+      30
+    );
+  }
 }
 
 function draw() {
@@ -99,13 +105,18 @@ function draw() {
   debugInfo();
   if (gameState === "startScreen") {
     startScreen();
-  } else if (gameState === "game") {
+  }
+  else if (gameState === "game") {
+    moveProjectileLines();
+    if (projectileStage === 1) {
+      hidenMiddleWRow();
+    }
+    fullGameRows();
     drawBob();
     moveBob();
     drawBounds();
-    moveProjectileLines();
-    debugRow();
-  } else if (gameState === "instructions") {
+  }
+  else if (gameState === "instructions") {
     instructions();
   }
 }

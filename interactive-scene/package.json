@@ -17,7 +17,7 @@
       "no-var": ["error"],
   
       "no-cond-assign": ["error", "always"],
-  
+      "no-undef": "off",
       "no-unused-vars": "off"
     },
     "globals": {
