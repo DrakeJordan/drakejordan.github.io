@@ -18,12 +18,16 @@ let backgroundColor = 220;
 let font;
 let regular;
 let semibold;
+let mono;
 
 let gameOffsetTime;
+
+let score = 0;
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
   semibold = loadFont("SF-Pro-Display-Semibold.otf");
+  mono = loadFont("SFMono-Semibold.otf");
 }
 
 function setup() {
@@ -91,12 +95,22 @@ function drawBounds() {
 
 function debugInfo() {
   if (keyIsDown(189)) {
+    textSize(15);
+    noStroke();
+    fill(strokeColor);
     text(
-      "DEBUG: " + gameState + " TIME: " + Math.round(millis()) + " GSTART:" + Math.round(gameOffsetTime) + " STAGE:" + projectileStage ,
+      "DEBUG " + mouseY + " TIME: " + Math.round(millis()) + " GSTART:" + Math.round(gameOffsetTime) + " STAGE:" + projectileStage  + " LINE:" + activeLinePositon,
       15,
       30
     );
   }
+}
+
+function displayScore() {
+  textFont(mono);
+  noStroke();
+  fill(strokeColor);
+  text("Score: " + score, width - 140, 50);
 }
 
 function draw() {
@@ -107,10 +121,13 @@ function draw() {
     startScreen();
   }
   else if (gameState === "game") {
-    moveProjectileLines();
     if (projectileStage === 1) {
       hidenMiddleWRow();
+    } 
+    else if (projectileStage === 2) {
+      fullClickRow();
     }
+    displayScore();
     fullGameRows();
     drawBob();
     moveBob();

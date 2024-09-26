@@ -3,6 +3,8 @@ let secondaryLinePositon = 0;
 let tertiaryLinePositon = 0;
 let quaternaryLinePositon = 0;
 
+let isAlive = true;
+
 let projectileSpeed = 2;
 
 let projectileStage = 0;
@@ -30,28 +32,45 @@ function fillProjectile(type) {
   }
 }
 
-function dropSquare(x, type, size) {
+function dropSquare(x, y, type, size) {
   // Spawn a square
   fillProjectile(type);
   noStroke();
-  square(x, activeLinePositon, size);  
+  square(x, y, size);  
 }
 
-function dropRect(x, type, w, h) {
+function dropRect(x, y, type, w, h) {
   // Spawn a rectangle
   fillProjectile(type);
   noStroke();
-  rect(x, activeLinePositon, w, h);  
+  rect(x, y, w, h);  
 }
 
 function hidenMiddleWRow() {
-  dropRect(width/2+40, "a", width/2, 30);
-  dropRect(width/2-40, "w", 80, 30);
-  dropRect(0, "a", width/2-40, 30);
-}
+  activeLinePositon += projectileSpeed;
 
+  if (activeLinePositon < height) {
+    dropRect(width/2+40, activeLinePositon, "a", width/2, 30);
+    dropRect(width/2-40, activeLinePositon, "b", 80, 30);
+    dropRect(0, activeLinePositon, "a", width/2 - 40, 30);
+  }
+  else {
+    activeLinePositon = 0;
+  }
+}
 function fullClickRow() {
-  dropRect(0, "r", width, 30);
+  activeLinePositon += projectileSpeed;
+
+  if (mouseY >= activeLinePositon && mouseY <= activeLinePositon + 30 && mouseIsPressed) {
+    isAlive = false;
+  }
+
+  if (activeLinePositon < height && isAlive) {
+    dropRect(0, activeLinePositon, "r", width, 30);
+  }
+  else {
+    activeLinePositon = 0;
+  }
 }
 
 function fullGameRows() {
