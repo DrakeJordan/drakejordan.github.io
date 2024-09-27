@@ -126,6 +126,8 @@ function draw() {
     } 
     else if (projectileStage === 2) {
       fullClickRow();
+    } else if (projectileStage === 3) {
+      fullClickRow();
     }
     displayScore();
     fullGameRows();
