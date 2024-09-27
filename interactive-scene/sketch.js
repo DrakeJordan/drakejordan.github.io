@@ -7,6 +7,7 @@
 
 
 let gameState = "startScreen";
+let bobIsDead = false;
 
 let strokeColor = 0;
 let boundWidth = 18;
@@ -43,8 +44,13 @@ function changeGameState() {
   if (gameState === "startScreen" && keyIsDown(73)) {
     gameState = "instructions";
   } 
-  else if (gameState === "instructions" && keyIsDown(8)) {
+  else if ((gameState === "instructions" || gameState === "deathScreen")&& keyIsDown(8)) {
     gameState = "startScreen";
+    bobIsDead = false;
+  }
+  if (bobIsDead) {
+    gameState === "deathScreen";
+    projectileStage = 0;
   }
 
 }
@@ -99,7 +105,7 @@ function debugInfo() {
     noStroke();
     fill(strokeColor);
     text(
-      "DEBUG " + mouseY + " TIME: " + Math.round(millis()) + " GSTART:" + Math.round(gameOffsetTime) + " STAGE:" + projectileStage  + " LINE:" + activeLinePositon,
+      gameState + " DED?:" + bobIsDead + " TIME: " + Math.round(millis()) + " GSTART:" + Math.round(gameOffsetTime) + " STAGE:" + projectileStage  + " LINE:" + activeLinePositon,
       15,
       30
     );
@@ -110,7 +116,7 @@ function displayScore() {
   textFont(mono);
   noStroke();
   fill(strokeColor);
-  text("Score: " + score, width - 140, 50);
+  text("Level: " + projectileStage, width - 140, 50);
 }
 
 function draw() {
@@ -126,7 +132,8 @@ function draw() {
     } 
     else if (projectileStage === 2) {
       fullClickRow();
-    } else if (projectileStage === 3) {
+    } 
+    else if (projectileStage === 3) {
       fullClickRow();
     }
     displayScore();
@@ -137,5 +144,8 @@ function draw() {
   }
   else if (gameState === "instructions") {
     instructions();
+  }
+  else if (gameState === "deathScreen") {
+    deathScreen();
   }
 }

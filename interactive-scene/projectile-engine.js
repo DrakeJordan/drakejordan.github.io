@@ -67,6 +67,11 @@ function fullClickRow() {
 
   if (activeLinePositon < height && isAlive) {
     dropRect(0, activeLinePositon, "r", width, 30);
+    if (activeLinePositon + 30 >= bobY && isAlive) {
+      bobIsDead = true;
+      gameState = "deathScreen";
+      isAlive = false;
+    }
   }
   else {
     activeLinePositon = 0;
