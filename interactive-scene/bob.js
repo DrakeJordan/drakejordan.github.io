@@ -29,5 +29,5 @@ function drawBob() {
   //Draw bob
   fill(255, 164, 107);
   noStroke();
-  rect(bobX, bobY, bobH, bobW);
+  image(bob, bobX, bobY, bobH, bobW);
 }
