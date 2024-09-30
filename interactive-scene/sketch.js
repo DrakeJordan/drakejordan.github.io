@@ -12,7 +12,7 @@ let edgeOffset = 16;
 
 let backgroundColor = 220;
 
-let introLines = ["please don't let me die", "i have a family btw", "i don't wanna be crushed"];
+let introLines = ["please don't let me die", "i have a family...", "i don't wanna be crushed", "why am i here", "i miss my kids"];
 let introLine = introLines[Math.floor(Math.random() * introLines.length)];
 
 //Make font vars
@@ -50,19 +50,17 @@ function changeGameState() {
   if (gameState === "startScreen" && keyIsDown(73)) {
     gameState = "instructions";
   } 
-  else if ((gameState === "instructions" || gameState === "deathScreen")&& keyIsDown(8)) {
+  else if ((gameState === "instructions" || gameState === "deathScreen" || gameState === "winnerScreen")&& keyIsDown(8)) {
     gameState = "startScreen";
     bobIsDead = false;
-    isFullClickAlive = true;
-    isLeftClickAlive = true;
-    isRightClickAlive = true;
+    Object.keys(clickStatus).forEach(key => clickStatus[key] = true);
   }
   if (bobIsDead) {
     gameState === "deathScreen";
     activeLinePositon = 0;
     bobX = width / 2;
     bobY = 0;
-    introLine = introLines[Math.floor(Math.random() * introLines.length)];
+    introLine = introLines[Math.floor(Math.random() * introLines.length)];  
   }
 
 }
@@ -74,7 +72,7 @@ function startScreen() {
 
   textSize(35);
   textFont(semibold);
-  text("Welcome to Bob's World", width / 2, height / 2);
+  text("Welcome to Bob's World.", width / 2, height / 2);
 
   textSize(20);
   textFont(regular);
@@ -152,7 +150,9 @@ function draw() {
       text(introLine, width /2, height / 2);
     }
     dropCurrentRow();
-    displayScore();
+    if (projectileStage < 13) {
+      displayScore();
+    }
     fullGameRows();
     drawBob();
     moveBob();
@@ -163,5 +163,8 @@ function draw() {
   }
   else if (gameState === "deathScreen") {
     deathScreen();
+  }
+  else if (gameState === "winnerScreen") {
+    winnerScreen();
   }
 }
