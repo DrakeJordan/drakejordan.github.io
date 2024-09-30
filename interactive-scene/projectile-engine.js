@@ -214,7 +214,7 @@ function checkerboardRow() {
 
 function dropCurrentRow() {
   if (projectileStage === 1) {
-  hidenMiddleWRow();
+    hidenMiddleWRow();
   }
   else if (projectileStage === 2) {
     fullClickRow(clickStatus, "isFullClickAlive");
