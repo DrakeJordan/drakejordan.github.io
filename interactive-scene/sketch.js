@@ -3,16 +3,20 @@
 // 9/19/2024
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - Used mouse wheel input as a core gameplay aspect to change background and projectile color.
 
+// Scene variables
 let strokeColor = 0;
-let boundWidth = 18;
-
-let edgeOffset = 16;
-
 let backgroundColor = 220;
 
+// Scene constants
+const BOUND_WIDTH = 18;
+const edgeOffset = 16;
+
+// Lines shown when starting a game
 let introLines = ["please don't let me die", "i have a family...", "i don't wanna be crushed", "why am i here", "i miss my kids"];
+
+// Pick a random line to use
 let introLine = introLines[Math.floor(Math.random() * introLines.length)];
 
 //Make font vars
@@ -29,7 +33,8 @@ let gameOffsetTime;
 let score = 0;
 
 function preload() {
-  //Load fonts
+  // Load fonts and Bob image
+
   regular = loadFont("SF-Pro-Display-Regular.otf");
   semibold = loadFont("SF-Pro-Display-Semibold.otf");
   mono = loadFont("SFMono-Semibold.otf");
@@ -37,11 +42,14 @@ function preload() {
 }
 
 function setup() {
+  // Create canvas and put Bob in the middle of the screen
   createCanvas(600, 600);
-  bobX = height / 2;
+  bobX = width / 2;
 }
 
 function changeGameState() {
+  // Change the game state depending on user input
+
   if (gameState === "startScreen" && mouseIsPressed) {
     projectileStage = 0;
     gameState = "game";
@@ -56,6 +64,7 @@ function changeGameState() {
     Object.keys(clickStatus).forEach(key => clickStatus[key] = true);
   }
   if (bobIsDead) {
+    // Reset key game variables when Bob dies
     gameState === "deathScreen";
     activeLinePositon = 0;
     bobX = width / 2;
@@ -66,6 +75,8 @@ function changeGameState() {
 }
 
 function startScreen() {
+  // Screen shown when game starts
+
   textAlign(CENTER);
   noStroke();
   fill(strokeColor);
@@ -84,19 +95,22 @@ function startScreen() {
 }
 
 function mouseWheel(event) {
+  // If mouse wheel moves up, set background to black and stroke to white
   if (event.delta > 0) {
     backgroundColor = 0;
     strokeColor = 220;
   }
   else {
+    // If mouse wheel moves down, set background to white and stroke to black
     backgroundColor = 220;
     strokeColor = 0;
   }
 }
 
 function drawBounds() {
-  strokeWeight(boundWidth);
+  strokeWeight(BOUND_WIDTH);
   stroke(strokeColor);
+
   //Top bound
   line(0, 3, width, 3);
 
@@ -134,7 +148,18 @@ function displayScore() {
   text("Level: " + projectileStage, width - 140, 50);
 }
 
+function displayIntroLine() {
+  // Shows the randomized intro line
+  textSize(10);
+  fill(100);
+  noStroke();
+  textAlign(CENTER);
+  text(introLine, width /2, height / 2);
+}
+
 function draw() {
+  // Draw correct screen depending on game state
+
   background(backgroundColor);
   changeGameState();
   debugInfo();
@@ -142,17 +167,20 @@ function draw() {
     startScreen();
   }
   else if (gameState === "game") {
+    // Loop all key aspects of gameplay if gameState is game
+    
     if (projectileStage === 0) {
-      textSize(10);
-      fill(100);
-      noStroke();
-      textAlign(CENTER);
-      text(introLine, width /2, height / 2);
+      // Show intro line if game has not started
+      displayIntroLine();
     }
+
     dropCurrentRow();
+
     if (projectileStage < 13) {
+      // Show score if within the main levels
       displayScore();
     }
+    
     fullGameRows();
     drawBob();
     moveBob();

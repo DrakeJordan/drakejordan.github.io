@@ -1,4 +1,6 @@
 function winnerScreen() {
+  // Screen shown when player wins
+  
   textAlign(CENTER);
   noStroke();
   fill(strokeColor);

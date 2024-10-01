@@ -1,4 +1,6 @@
 function deathScreen() {
+  // Page shown when Bob dies
+  
   textAlign(CENTER);
   noStroke();
   fill(strokeColor);
