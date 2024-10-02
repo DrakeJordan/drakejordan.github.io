@@ -1,6 +1,6 @@
 function winnerScreen() {
   // Screen shown when player wins
-  
+
   textAlign(CENTER);
   noStroke();
   fill(strokeColor);
@@ -15,8 +15,5 @@ function winnerScreen() {
     
   textSize(20);
   textFont(regular);
-  text("Press \"Backspace\" to return to the start screen.",
-    width / 2 ,
-    height - 50
-  );
+  text("Press \"Backspace\" to return to the start screen.", width / 2 , height - 50 );
 }

@@ -1,6 +1,6 @@
 // Interactive Scene
 // Drake Jordan
-// 9/19/2024
+// 10/1/2024
 //
 // Extra for Experts:
 // - Used mouse wheel input as a core gameplay aspect to change background and projectile color.
@@ -11,7 +11,7 @@ let backgroundColor = 220;
 
 // Scene constants
 const BOUND_WIDTH = 18;
-const edgeOffset = 16;
+const EDGE_OFFSET = 16;
 
 // Lines shown when starting a game
 let introLines = ["please don't let me die", "i have a family...", "i don't wanna be crushed", "why am i here", "i miss my kids"];
@@ -19,18 +19,15 @@ let introLines = ["please don't let me die", "i have a family...", "i don't wann
 // Pick a random line to use
 let introLine = introLines[Math.floor(Math.random() * introLines.length)];
 
-//Make font vars
-let font;
-let regular;
-let semibold;
-let mono;
-let bob;
+let regular; // Regular weight font
+let semibold; // Semibold weight font
+let mono; // Monospaced font
 
-//Make game vars
-let gameState = "startScreen";
-let bobIsDead = false;
-let gameOffsetTime;
-let score = 0;
+let bob; // Bob image
+
+let gameState = "startScreen"; // Game state
+let bobIsDead = false; // Is bob dead
+let gameOffsetTime; // Offset between projectile rows
 
 function preload() {
   // Load fonts and Bob image

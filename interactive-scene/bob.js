@@ -1,4 +1,4 @@
-// Bob's movement variables
+// Bob's movement abd size variables
 let bobX = 0;
 let bobY = 0;
 let bobW = 30;
@@ -12,14 +12,14 @@ function moveBob() {
   }
   
   // Move right
-  if (bobX < width - edgeOffset - bobH) {
+  if (bobX < width - EDGE_OFFSET - bobH) {
     if (keyIsDown(39) || keyIsDown(68)) {
       bobX += bobSpeed;
     }
   }
   
   // Move left
-  if (bobX > edgeOffset ) {
+  if (bobX > EDGE_OFFSET ) {
     if (keyIsDown(37) || keyIsDown(65)) {
       bobX -= bobSpeed;
     }
