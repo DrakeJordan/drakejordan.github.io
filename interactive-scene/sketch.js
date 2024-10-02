@@ -4,6 +4,7 @@
 //
 // Extra for Experts:
 // - Used mouse wheel input as a core gameplay aspect to change background and projectile color.
+// - Used CSS to center game window in screen.
 
 // Scene variables
 let strokeColor = 0;

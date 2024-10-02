@@ -170,13 +170,13 @@ function rightClickRow(clickStatus, key) {
     clickStatus[key] = false;
   }
 
-  // If row is not at bottom, show row
+  // If row is not at bottom, show row non-clickable row
   if (activeLinePositon < height) {
     dropRect(0, activeLinePositon, "a", width - 60, 30);
   }
 
   // If Bob touches non clickable section, kill Bob
-  if (activeLinePositon + 30 >= bobY && bobX >= width-60) {
+  if (activeLinePositon + 30 >= bobY && !(bobX >= width-60)) {
     bobIsDead = true;
     gameState = "deathScreen";
   }
