@@ -13,7 +13,7 @@ function setup() {
       let someTile = spawnTile(x, y);
       tileArray.push(someTile);
     }
-}
+  }
 }
 
 function draw() {
