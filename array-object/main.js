@@ -17,41 +17,68 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(700, 700);
+  createCanvas(900, 700);
   noStroke();
 }
 
 function mousePressed() {
+  // DEBUG - TO DELETE: Moves p1 or p2 to mouse press
   if (keyIsDown(80)) {
     sharedDataStore.p2x = mouseX;
     sharedDataStore.p2y = mouseY;
-  } else {
+  } 
+  else {
     sharedDataStore.p1x = mouseX;
     sharedDataStore.p1y = mouseY;
   }
 }
 
 function movePlayer() {
+  // THIS IS DEBUG: moves p2 if p is held
+  if (keyIsDown(80)) {
   // Move player up
-  if (keyIsDown(87) || keyIsDown(38)) {
-    sharedDataStore.p1y -= PLAYER_SPEED;
-  }
+    if (keyIsDown(87) || keyIsDown(38)) {
+      sharedDataStore.p2y -= PLAYER_SPEED;
+    }
 
-  // Move player down
-  if (keyIsDown(83) || keyIsDown(40)) {
-    sharedDataStore.p1y += PLAYER_SPEED;
-  }
+    // Move player down
+    if (keyIsDown(83) || keyIsDown(40)) {
+      sharedDataStore.p2y += PLAYER_SPEED;
+    }
 
-  // Move player left
-  if (keyIsDown(65) || keyIsDown(37)) {
-    sharedDataStore.p1x -= PLAYER_SPEED;
-  }
+    // Move player left
+    if (keyIsDown(65) || keyIsDown(37)) {
+      sharedDataStore.p2x -= PLAYER_SPEED;
+    }
 
-  // Move player right
-  if (keyIsDown(68) || keyIsDown(39)) {
-    sharedDataStore.p1x += PLAYER_SPEED;
+    // Move player right
+    if (keyIsDown(68) || keyIsDown(39)) {
+      sharedDataStore.p2x += PLAYER_SPEED;
+    }
+  }
+  else {
+    // Move player up
+    if (keyIsDown(87) || keyIsDown(38)) {
+      sharedDataStore.p1y -= PLAYER_SPEED;
+    }
+  
+    // Move player down
+    if (keyIsDown(83) || keyIsDown(40)) {
+      sharedDataStore.p1y += PLAYER_SPEED;
+    }
+  
+    // Move player left
+    if (keyIsDown(65) || keyIsDown(37)) {
+      sharedDataStore.p1x -= PLAYER_SPEED;
+    }
+  
+    // Move player right
+    if (keyIsDown(68) || keyIsDown(39)) {
+      sharedDataStore.p1x += PLAYER_SPEED;
+    }
   }
 }
+
 
 function draw() {
   background(0);
