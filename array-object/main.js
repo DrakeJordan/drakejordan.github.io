@@ -7,18 +7,35 @@
 
 let sharedDataStore;
 const PLAYER_SPEED = 4;
+const PLAYER_SIZE = 20;
+
+let gameState = "titleScreen";
+
+let createMatchButton;
+let joinMatchButton;
 
 function preload() {
+  regular = loadFont("SF-Pro-Display-Regular.otf");
+  semibold = loadFont("SF-Pro-Display-Semibold.otf");
+  logo = loadImage("tempGameLogo.png");
+
 	  partyConnect(
 		  "wss://demoserver.p5party.org", 
 		  "multiplayerGame"
 	  );
-  sharedDataStore = partyLoadShared("shared", { p1x: 100, p1y: 100, p2x: 200, p2y: 200});
+  sharedDataStore = partyLoadShared("shared", {
+    p1x: 100,
+    p1y: 100,
+    p2x: 200,
+    p2y: 200 
+  });
 }
 
 function setup() {
   createCanvas(900, 700);
   noStroke();
+  createMatchButton = createButton('Create Match', 'createMatch');
+  joinMatchButton = createButton('Join Match', 'joinMatch');
 }
 
 function mousePressed() {
@@ -79,20 +96,51 @@ function movePlayer() {
   }
 }
 
-
-function draw() {
-  background(0);
-
-  movePlayer();
-
-  console.log("p1X " + sharedDataStore.p1x);
-  console.log("p1Y " + sharedDataStore.p1y);
-  console.log("p2X " + sharedDataStore.p2x);
-  console.log("p2Y " + sharedDataStore.p2y);
-
-  fill(255);
-  ellipse(sharedDataStore.p1x, sharedDataStore.p1y, 100, 100);
+function drawPlayers() {
+  fill(0);
+  square(sharedDataStore.p1x, sharedDataStore.p1y, PLAYER_SIZE, 4);
 
   fill(255, 200, 0);
-  ellipse(sharedDataStore.p2x, sharedDataStore.p2y, 100, 100);
+  square(sharedDataStore.p2x, sharedDataStore.p2y, PLAYER_SIZE, 4);
+}
+
+function titleScreen() {
+  textAlign(CENTER);
+  noStroke();
+  fill(0);
+
+  image(logo, width/2 - logo.width/5, 100, logo.width/2.5, logo.height/2.5);
+
+  textSize(65);
+  textFont(semibold);
+  text("Welcome to Tag World!", width / 2, height / 2);
+
+  joinMatchButton.style('font-size', '30px');
+  createMatchButton.style('font-size', '30px');
+  joinMatchButton.position(width-150,700);
+  createMatchButton.position(width/2-60,700);
+
+  textSize(20);
+  textFont(regular);
+  text(
+    "",
+    width / 2 ,
+    height - 50
+  );
+}
+
+
+function draw() {
+  background(255);
+
+  if (gameState === "titleScreen") {
+    titleScreen();
+  }  
+  else if (gameState === "matchmaking") {
+
+  } 
+  else if (gameState === "game") {
+    movePlayer();
+    drawPlayers();
+  }
 }

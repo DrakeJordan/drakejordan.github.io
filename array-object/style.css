@@ -1,8 +1,13 @@
 html, body {
-  margin: 0;
-  padding: 0;
+  height: 100%;
 }
 
-canvas {
-  display: block;
+body {
+  background-color: rgb(221, 233, 245);
+  margin: 0;
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
 }
