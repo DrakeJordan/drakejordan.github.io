@@ -27,7 +27,8 @@ function preload() {
     p1x: 100,
     p1y: 100,
     p2x: 200,
-    p2y: 200 
+    p2y: 200,
+    activeJoinCodes: [],
   });
 }
 
@@ -36,6 +37,11 @@ function setup() {
   noStroke();
   createMatchButton = createButton('Create Match', 'createMatch');
   joinMatchButton = createButton('Join Match', 'joinMatch');
+
+  joinMatchButton.position(width-150,700);
+  createMatchButton.position(width/2-60,700);
+
+  gameState = "titleScreen";
 }
 
 function mousePressed() {
@@ -117,8 +123,6 @@ function titleScreen() {
 
   joinMatchButton.style('font-size', '30px');
   createMatchButton.style('font-size', '30px');
-  joinMatchButton.position(width-150,700);
-  createMatchButton.position(width/2-60,700);
 
   textSize(20);
   textFont(regular);
@@ -129,9 +133,19 @@ function titleScreen() {
   );
 }
 
+function changeGameState() {
+  if (gameState === "titleScreen" && keyIsPressed(56)) {
+    gameState = "game";
+  }
+}
+
 
 function draw() {
   background(255);
+
+  text(gameState, 50, 50);
+
+  changeGameState();
 
   if (gameState === "titleScreen") {
     titleScreen();
