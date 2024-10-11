@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "eslint": "^8.57.1"
+    "eslint": "^8.57.1",
+    "uuid": "^10.0.0"
   }
 }

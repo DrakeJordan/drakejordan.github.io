@@ -5,14 +5,14 @@
 // Extra for Experts:
 // - Used p5.party for multiplayer support
 
-let sharedDataStore;
 const PLAYER_SPEED = 4;
 const PLAYER_SIZE = 20;
 
-let gameState = "titleScreen";
+let gameState = "game";
+let sharedDataStore
 
-let createMatchButton;
-let joinMatchButton;
+let activePlayer = 1;
+let activePlayerUUID = "";
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
@@ -28,6 +28,8 @@ function preload() {
     p1y: 100,
     p2x: 200,
     p2y: 200,
+    p1UUID: "",
+    p2UUID: "",
     activeJoinCodes: [],
   });
 }
@@ -35,13 +37,14 @@ function preload() {
 function setup() {
   createCanvas(900, 700);
   noStroke();
-  createMatchButton = createButton('Create Match', 'createMatch');
-  joinMatchButton = createButton('Join Match', 'joinMatch');
-
-  joinMatchButton.position(width-150,700);
-  createMatchButton.position(width/2-60,700);
-
-  gameState = "titleScreen";
+  if (sharedDataStore.p1UUID === "") {
+    activePlayerUUID = random(10000000000);
+    sharedDataStore.p1UUID = activePlayerUUID;
+  } 
+  else {
+    activePlayerUUID = random(10000000000);
+    sharedDataStore.p2UUID = activePlayerUUID;
+  }
 }
 
 function mousePressed() {
@@ -58,7 +61,7 @@ function mousePressed() {
 
 function movePlayer() {
   // THIS IS DEBUG: moves p2 if p is held
-  if (keyIsDown(80)) {
+  if (sharedDataStore.p1UUID === activePlayerUUID) {
   // Move player up
     if (keyIsDown(87) || keyIsDown(38)) {
       sharedDataStore.p2y -= PLAYER_SPEED;
@@ -79,24 +82,24 @@ function movePlayer() {
       sharedDataStore.p2x += PLAYER_SPEED;
     }
   }
-  else {
+  else if (sharedDataStore.p2UUID === activePlayerUUID) {
     // Move player up
-    if (keyIsDown(87) || keyIsDown(38)) {
+    if ((keyIsDown(87) || keyIsDown(38)) && sharedDataStore.p1y >= 0) {
       sharedDataStore.p1y -= PLAYER_SPEED;
     }
   
     // Move player down
-    if (keyIsDown(83) || keyIsDown(40)) {
+    if ((keyIsDown(83) || keyIsDown(40)) && sharedDataStore.p1y <= height-22) {
       sharedDataStore.p1y += PLAYER_SPEED;
     }
   
     // Move player left
-    if (keyIsDown(65) || keyIsDown(37)) {
+    if ((keyIsDown(65) || keyIsDown(37)) && sharedDataStore.p1x >= 0) {
       sharedDataStore.p1x -= PLAYER_SPEED;
     }
   
     // Move player right
-    if (keyIsDown(68) || keyIsDown(39)) {
+    if ((keyIsDown(68) || keyIsDown(39)) && sharedDataStore.p1x <= width-22) {
       sharedDataStore.p1x += PLAYER_SPEED;
     }
   }
@@ -121,9 +124,6 @@ function titleScreen() {
   textFont(semibold);
   text("Welcome to Tag World!", width / 2, height / 2);
 
-  joinMatchButton.style('font-size', '30px');
-  createMatchButton.style('font-size', '30px');
-
   textSize(20);
   textFont(regular);
   text(
@@ -133,9 +133,9 @@ function titleScreen() {
   );
 }
 
-function changeGameState() {
-  if (gameState === "titleScreen" && keyIsPressed(56)) {
-    gameState = "game";
+function showDebugInfo() {
+  if (keyIsDown(189)) {
+    text(activePlayerUUID, sharedDataStore.p1UUID, 50, 50);
   }
 }
 
@@ -143,10 +143,8 @@ function changeGameState() {
 function draw() {
   background(255);
 
-  text(gameState, 50, 50);
-
-  changeGameState();
-
+  showDebugInfo();
+  text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID, 50, 50);
   if (gameState === "titleScreen") {
     titleScreen();
   }  
