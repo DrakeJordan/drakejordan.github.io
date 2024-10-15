@@ -9,10 +9,12 @@ const PLAYER_SPEED = 4;
 const PLAYER_SIZE = 20;
 
 let gameState = "game";
-let sharedDataStore
+let sharedDataStore;
 
 let activePlayer = 1;
 let activePlayerUUID = "";
+
+let isColliding = false;
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
@@ -31,6 +33,8 @@ function preload() {
     p1UUID: "",
     p2UUID: "",
     activeJoinCodes: [],
+    activeTagger: 0,
+    gameWinner: 0,
   });
 }
 
@@ -44,6 +48,13 @@ function setup() {
   else {
     activePlayerUUID = random(10000000000);
     sharedDataStore.p2UUID = activePlayerUUID;
+  }
+  let randomTaggerNumeber = random(100); 
+  if (randomTaggerNumeber > 50) {
+    sharedDataStore.activeTagger = 1;
+  } 
+  else { 
+    sharedDataStore.activeTagger = 2;
   }
 }
 
@@ -106,10 +117,12 @@ function movePlayer() {
 }
 
 function drawPlayers() {
+  // Draw Player 1 as black
   fill(0);
   square(sharedDataStore.p1x, sharedDataStore.p1y, PLAYER_SIZE, 4);
 
-  fill(255, 200, 0);
+  // Draw Player 2 as orange
+  fill("orange");
   square(sharedDataStore.p2x, sharedDataStore.p2y, PLAYER_SIZE, 4);
 }
 
@@ -133,9 +146,44 @@ function titleScreen() {
   );
 }
 
-function showDebugInfo() {
-  if (keyIsDown(189)) {
-    text(activePlayerUUID, sharedDataStore.p1UUID, 50, 50);
+function checkCollision() {
+  // If active tagger is Player 1 (black)
+
+  if (
+    sharedDataStore.p2x + PLAYER_SIZE >= sharedDataStore.p1x &&
+      sharedDataStore.p1x + PLAYER_SIZE >= sharedDataStore.p2x &&
+      sharedDataStore.p2y + PLAYER_SIZE >= sharedDataStore.p1y &&
+      sharedDataStore.p1y + PLAYER_SIZE >= sharedDataStore.p2y
+  ) {
+    if (sharedDataStore.activeTagger === 1 ) {
+      sharedDataStore.gameWinner = 1;
+    } 
+    else {
+      sharedDataStore.gameWinner = 2;
+    }
+    isColliding = true; 
+  }  
+  else {
+    isColliding = false;
+  }
+  
+}
+
+function debugKeyActions() {
+  if (keyIsDown(49)) {
+    sharedDataStore.p1UUID = activePlayerUUID;
+  }
+  else if (keyIsDown(50)) {
+    sharedDataStore.p2UUID = activePlayerUUID;
+  }
+
+  if (keyIsDown(187)) {
+    sharedDataStore.gameWinner = 0;
+    sharedDataStore.p1UUID = 0;
+    sharedDataStore.p2UUID = 0;
+
+    sharedDataStore.p1x = 100;
+    sharedDataStore.p2x = 200;
   }
 }
 
@@ -143,16 +191,17 @@ function showDebugInfo() {
 function draw() {
   background(255);
 
-  showDebugInfo();
-  text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID, 50, 50);
+  text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner , 50, 50);
+  debugKeyActions();
   if (gameState === "titleScreen") {
     titleScreen();
   }  
   else if (gameState === "matchmaking") {
 
   } 
-  else if (gameState === "game") {
+  else if (gameState === "game" && sharedDataStore.gameWinner === 0) {
     movePlayer();
     drawPlayers();
+    checkCollision();
   }
 }
