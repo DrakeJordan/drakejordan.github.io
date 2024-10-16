@@ -162,6 +162,7 @@ function checkCollision() {
       sharedDataStore.gameWinner = 2;
     }
     isColliding = true; 
+    gameState = "winnerScreen";
   }  
   else {
     isColliding = false;
@@ -187,11 +188,26 @@ function debugKeyActions() {
   }
 }
 
+function winnerScreen() {
+  textAlign(CENTER, CENTER);
+  noStroke();
+  fill(0);
+
+  textSize(45);
+  textFont(semibold);
+  if (sharedDataStore.gameWinner === 1) {
+    text("Orange Player Wins!", width / 2, height / 2);
+  } 
+  else {
+    text("Black Player Wins!", width / 2, height / 2);
+  }
+}
+
 
 function draw() {
   background(255);
 
-  text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner , 50, 50);
+ 
   debugKeyActions();
   if (gameState === "titleScreen") {
     titleScreen();
@@ -200,8 +216,12 @@ function draw() {
 
   } 
   else if (gameState === "game" && sharedDataStore.gameWinner === 0) {
+    text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner + " State:" + gameState, 50, 50);
     movePlayer();
     drawPlayers();
     checkCollision();
+  }
+  else if (gameState === "winnerScreen") {
+    winnerScreen();
   }
 }
