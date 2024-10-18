@@ -8,7 +8,10 @@
 const PLAYER_SPEED = 4;
 const PLAYER_SIZE = 20;
 
-let gameState = "game";
+let joinGameButtonX = 0;
+let joinGameButtonY = 0;
+
+let gameState = "titleScreen";
 let sharedDataStore;
 
 let activePlayer = 1;
@@ -58,6 +61,45 @@ function setup() {
   }
 }
 
+function joinGameButton() {
+  let opacity = 100;
+
+  if (mouseX >= width / 4-80 && mouseX <= width / 4-80 + 165 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
+    opacity = 150;
+  } 
+  else {
+    opacity = 400;
+  }
+
+  textSize(25);
+  textFont(semibold);
+
+  fill(10,132,255, opacity);
+  rect(width / 4-80, height / 2 + 190, 163, 45, 14);
+
+  fill(255);
+  text("Join a Game", width / 4, height / 2 + 220);
+}
+
+function createGameButton() {
+  let opacity = 100;
+
+  if (mouseX >= width / 4*2.5 && mouseX <= width / 4*2.5 + 186 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
+    opacity = 150;
+  } 
+  else {
+    opacity = 400;
+  }
+  textSize(25);
+  textFont(semibold);
+
+  fill(10,132,255, opacity);
+  rect(width / 4*2.5, height / 2 + 190, 186, 45, 14);
+
+  fill(255);
+  text("Create a Game", width / 4*2.5 + 93, height / 2 + 220);
+}
+
 function mousePressed() {
   // DEBUG - TO DELETE: Moves p1 or p2 to mouse press
   if (keyIsDown(80)) {
@@ -68,6 +110,12 @@ function mousePressed() {
     sharedDataStore.p1x = mouseX;
     sharedDataStore.p1y = mouseY;
   }
+
+  // Check if user is clicking "Create a Game"
+  if (mouseX >= width / 4*2.5 && mouseX <= width / 4*2.5 + 186 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45 && gameState === "titleScreen") {
+    gameState = "createGame";
+  }
+  
 }
 
 function movePlayer() {
@@ -139,11 +187,7 @@ function titleScreen() {
 
   textSize(20);
   textFont(regular);
-  text(
-    "",
-    width / 2 ,
-    height - 50
-  );
+  text("Create or join a game to play with a friend.", width / 2 , height/2 + 50);
 }
 
 function checkCollision() {
@@ -211,9 +255,12 @@ function draw() {
   debugKeyActions();
   if (gameState === "titleScreen") {
     titleScreen();
+    joinGameButton();
+    createGameButton();
   }  
-  else if (gameState === "matchmaking") {
-
+  else if (gameState === "createGame") {
+    fill(0);
+    text("Create a Game Screen", width / 2, height / 2);
   } 
   else if (gameState === "game" && sharedDataStore.gameWinner === 0) {
     text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner + " State:" + gameState, 50, 50);
