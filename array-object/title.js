@@ -1,0 +1,57 @@
+function titleScreen() {
+  textAlign(CENTER);
+  noStroke();
+  fill(0);
+  
+  image(logo, width/2 - logo.width/5, 100, logo.width/2.5, logo.height/2.5);
+  
+  textSize(65);
+  textFont(semibold);
+  text("Welcome to Tag World!", width / 2, height / 2);
+  
+  textSize(20);
+  textFont(regular);
+  text("Create or join a game to play with a friend.", width / 2 , height/2 + 50);
+
+  joinGameButton();
+  createGameButton();
+}
+
+function joinGameButton() {
+  let opacity = 100;
+  
+  if (mouseX >= width / 4-80 && mouseX <= width / 4-80 + 165 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
+    opacity = 150;
+  } 
+  else {
+    opacity = 400;
+  }
+  
+  textSize(25);
+  textFont(semibold);
+  
+  fill(10,132,255, opacity);
+  rect(width / 4-80, height / 2 + 190, 163, 45, 14);
+  
+  fill(255);
+  text("Join a Game", width / 4, height / 2 + 220);
+}
+  
+function createGameButton() {
+  let opacity = 100;
+  
+  if (mouseX >= width / 4*2.5 && mouseX <= width / 4*2.5 + 186 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
+    opacity = 150;
+  } 
+  else {
+    opacity = 400;
+  }
+  textSize(25);
+  textFont(semibold);
+  
+  fill(10,132,255, opacity);
+  rect(width / 4*2.5, height / 2 + 190, 186, 45, 14);
+  
+  fill(255);
+  text("Create a Game", width / 4*2.5 + 93, height / 2 + 220);
+}
