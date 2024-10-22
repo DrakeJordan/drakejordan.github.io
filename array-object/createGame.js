@@ -49,7 +49,8 @@ function createGameScreen() {
         activePlayers: 0,
         gameWinner: 0,
         gameCountdown: 0,
-        gameEndCountdown: 0
+        gameEndCountdown: 0,
+        winnerFound: false
       });
       sharedDataStoreCodeCreated = true;
     }

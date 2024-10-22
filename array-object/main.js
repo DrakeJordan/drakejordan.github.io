@@ -5,50 +5,48 @@
 // Extra for Experts:
 // - Used p5.party for multiplayer support
 
-//TO-DO
-//Work out edge cases and fix multiplayer pairing
-//Complete game logic
-//Add winner screen
-//User will have to refresh window to start a new game to reset key values
+const PLAYER_SPEED = 4; // Constant player speed
+const PLAYER_SIZE = 20; // Constant player size
 
-const PLAYER_SPEED = 4;
-const PLAYER_SIZE = 20;
+let gameState = "titleScreen"; // The games current state
+let sharedDataStore; // Initalize shared data store
 
-let gameState = "titleScreen";
-let sharedDataStore;
+let activePlayer = 1; // The active games player
+let activePlayerUUID = ""; // The active games player UUID
 
-let activePlayer = 1;
-let activePlayerUUID = "";
+let isColliding = false; // If players are colliding or not
 
-let isColliding = false;
+let semibold; // Semibold font
+let regular; // Regular font
 
-let semibold;
-let regular;
 
-let starButton;
+// Code button images
+let starButton; 
 let heartButton;
 let triangleButton;
 let circleButton;
 
+// Initalize array for code button images
 let buttonImages = [];
 
-let logo;
-let winnerIcon;
+let logo; // Game logo
+let winnerIcon; // Winner crown image
 
-let sharedDataStoreCode = "";
-let sharedDataStoreCodeCreated = false;
+let sharedDataStoreCode = ""; // Data store server code
+let sharedDataStoreCodeCreated = false; // Whether or not the data store server code ahs been created
 
 function preload() {
+  // Load fonts and images
   regular = loadFont("SF-Pro-Display-Regular.otf");
   semibold = loadFont("SF-Pro-Display-Semibold.otf");
   logo = loadImage("images/logo.png");
   winnerIcon = loadImage("images/winner.png");
-
   starButton = loadImage("images/star.button.png");
   heartButton = loadImage("images/heart.button.png");
   triangleButton = loadImage("images/triangle.button.png");
   circleButton = loadImage("images/circle.button.png");
 
+  // Connect to initial p5.party server
   partyConnect(
 		  "wss://demoserver.p5party.org", 
 		  "multiplayerGame"
@@ -63,7 +61,8 @@ function preload() {
     activePlayers: 0,
     gameWinner: 0,
     gameCountdown: 0,
-    gameEndCountdown: 0
+    gameEndCountdown: 0,
+    winnerFound: false
   });
 }
  
@@ -71,34 +70,17 @@ function setup() {
   createCanvas(900, 700);
   noStroke();
 
+  // Reset shared data store code
   sharedDataStoreCode = "";
 
+  // Create array of code button images
   buttonImages = [starButton, triangleButton, heartButton, circleButton];
 }
 
-function debugKeyActions() {
-  if (keyIsDown(49)) {
-    sharedDataStore.p1UUID = activePlayerUUID;
-  }
-  else if (keyIsDown(50)) {
-    sharedDataStore.p2UUID = activePlayerUUID;
-  }
-
-  if (keyIsDown(187)) {
-    sharedDataStore.gameWinner = 0;
-    sharedDataStore.p1UUID = 0;
-    sharedDataStore.p2UUID = 0;
-
-    sharedDataStore.p1x = 100;
-    sharedDataStore.p2x = 200;
-  }
-}
-
+// Draw and run game code depending on game state
 function draw() {
   background(255);
-  debugKeyActions();
   textSize(15);
-  //text(sharedDataStore.activePlayers, width / 2, 200);
   if (gameState === "titleScreen") {
     titleScreen();
   }  
@@ -112,7 +94,6 @@ function draw() {
     pregameScreen();
   }
   else if (gameState === "game" && sharedDataStore.gameWinner === 0) {
-    //text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner + " State:" + gameState, 50, 50);
     movePlayer();
     drawPlayers();
     checkCollision();

@@ -2,7 +2,7 @@ function mousePressed() {
   let spacing = (width - 4 * buttonSize) / 5;
   let y = height / 2 + 130;
     
-  // Check if each button is being clicked
+  // Check if each button code is being clicked
   for (let i = 0; i < 4; i++) {
     let x = spacing + i * (buttonSize + spacing);
       

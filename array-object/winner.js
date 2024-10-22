@@ -7,6 +7,8 @@ function winnerScreen() {
   
     textSize(45);
     textFont(semibold);
+
+    // If the tagger wins, show information
     if (sharedDataStore.gameWinner === 1) {
       image(winnerIcon, width/2 - winnerIcon.width/5, 100, winnerIcon.width/2.5, winnerIcon.height/2.5);
       text("Great job! You win.", width / 2, height / 2);
@@ -14,6 +16,7 @@ function winnerScreen() {
       textFont(regular);
       text("You tagged the other player in time.", width / 2 , height/2 + 55);
     } 
+    // If the tagger loses, show information
     else {
       text("Better luck next time.", width / 2, height / 2);
       textSize(20);
@@ -31,6 +34,8 @@ function winnerScreen() {
   
     textSize(45);
     textFont(semibold);
+
+    // If the runner wins, show information
     if (sharedDataStore.gameWinner === 2) {
       image(winnerIcon, width/2 - winnerIcon.width/5, 100, winnerIcon.width/2.5, winnerIcon.height/2.5);
       text("Great job! You win.", width / 2, height / 2);
@@ -38,6 +43,7 @@ function winnerScreen() {
       textFont(regular);
       text("You avoided the tagger.", width / 2 , height/2 + 55);
     } 
+    // If the runner loses, show information
     else {
       text("Better luck next time.", width / 2, height / 2);
       textSize(20);
@@ -46,5 +52,5 @@ function winnerScreen() {
     }
 
     text("Refresh the page to play again.", width / 2 , height - 55);
-}
+  }
 }

@@ -1,3 +1,4 @@
+// Screen shown when game starts
 function titleScreen() {
   textAlign(CENTER);
   noStroke();
@@ -17,9 +18,11 @@ function titleScreen() {
   createGameButton();
 }
 
+// Button allowing user to join a game
 function joinGameButton() {
   let opacity = 100;
   
+  // If mouse is hovering button, lower opacity
   if (mouseX >= width / 4-80 && mouseX <= width / 4-80 + 165 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
     opacity = 150;
   } 
@@ -37,9 +40,12 @@ function joinGameButton() {
   text("Join a Game", width / 4, height / 2 + 220);
 }
   
+
+// Button allowing user to create a game
 function createGameButton() {
   let opacity = 100;
   
+  // If mouse is hovering button, lower opacity
   if (mouseX >= width / 4*2.5 && mouseX <= width / 4*2.5 + 186 && mouseY >=  height / 2 + 190 && mouseY <=  height / 2 + 190 + 45) {
     opacity = 150;
   } 

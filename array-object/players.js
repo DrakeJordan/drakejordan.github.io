@@ -1,6 +1,6 @@
-let gameEndTimer = 30;
-let gameEndTimerTime = 0;
-let gameEndTimerSet = false;
+let gameEndTimer = 30; // Time till the game ends
+let gameEndTimerTime = 0; // Initial game end timer starting time
+let gameEndTimerSet = false; // Whether or not the game end timer has been set
 
 
 function drawPlayers() {
@@ -14,31 +14,40 @@ function drawPlayers() {
 }
 
 function drawCountdown() {
+  // Draw countdown until the game ends
   if (gameEndTimer !== 0) {
     textSize(70);
     textFont(semibold);
     text(gameEndTimer, width / 2 , height/2 + 190);
   } 
   else {
+    // When countdown ends, set winner
     sharedDataStore.gameWinner = 2;
     gameState = "winnerScreen";
   }
 
-
+  // If game timer has not been set, set it
   if (!gameEndTimerSet){
     gameEndTimerTime = millis();
     gameEndTimerSet = true;
   }
 
+  // Count down game timer every 1 second
   if (millis() > gameEndTimerTime + 1000) {
     gameEndTimerTime = millis();
     gameEndTimer -= 1;
   }
 }
   
+// Check if players are colliding
 function checkCollision() {
-  // If active tagger is Player 1 (black)
+
+  // If game winner is found, change game state
+  if (sharedDataStore.winnerFound) {
+    gameState = "winnerScreen";
+  }
   
+  // If players collide, set collision and winners
   if (
     sharedDataStore.p2x + PLAYER_SIZE >= sharedDataStore.p1x &&
         sharedDataStore.p1x + PLAYER_SIZE >= sharedDataStore.p2x &&
@@ -52,6 +61,8 @@ function checkCollision() {
       sharedDataStore.gameWinner = 2;
     }
     isColliding = true; 
+    sharedDataStore.gameWinner = 1;
+    sharedDataStore.winnerFound = true;
     gameState = "winnerScreen";
   }  
   else {
@@ -61,45 +72,44 @@ function checkCollision() {
 }
 
 function movePlayer() {
-  // THIS IS DEBUG: moves p2 if p is held
   if (sharedDataStore.p1UUID === activePlayerUUID) {
-    // Move player up
-    if (keyIsDown(87) || keyIsDown(38)) {
+    // Move player 2 up
+    if ((keyIsDown(87) || keyIsDown(38)) && sharedDataStore.p2y >= 0) {
       sharedDataStore.p2y -= PLAYER_SPEED;
     }
   
-    // Move player down
-    if (keyIsDown(83) || keyIsDown(40)) {
+    // Move player 2 down
+    if ((keyIsDown(83) || keyIsDown(40)) && sharedDataStore.p2y <= height-22) {
       sharedDataStore.p2y += PLAYER_SPEED;
     }
   
-    // Move player left
-    if (keyIsDown(65) || keyIsDown(37)) {
+    // Move player 2 left
+    if ((keyIsDown(65) || keyIsDown(37)) && sharedDataStore.p2x >= 0) {
       sharedDataStore.p2x -= PLAYER_SPEED;
     }
   
-    // Move player right
-    if (keyIsDown(68) || keyIsDown(39)) {
+    // Move player 2 right
+    if ((keyIsDown(68) || keyIsDown(39)) && sharedDataStore.p2x <= width-22) {
       sharedDataStore.p2x += PLAYER_SPEED;
     }
   }
   else if (sharedDataStore.p2UUID === activePlayerUUID) {
-    // Move player up
+    // Move player 1 up
     if ((keyIsDown(87) || keyIsDown(38)) && sharedDataStore.p1y >= 0) {
       sharedDataStore.p1y -= PLAYER_SPEED;
     }
     
-    // Move player down
+    // Move player 1 down
     if ((keyIsDown(83) || keyIsDown(40)) && sharedDataStore.p1y <= height-22) {
       sharedDataStore.p1y += PLAYER_SPEED;
     }
     
-    // Move player left
+    // Move player 1 left
     if ((keyIsDown(65) || keyIsDown(37)) && sharedDataStore.p1x >= 0) {
       sharedDataStore.p1x -= PLAYER_SPEED;
     }
     
-    // Move player right
+    // Move player 1 right
     if ((keyIsDown(68) || keyIsDown(39)) && sharedDataStore.p1x <= width-22) {
       sharedDataStore.p1x += PLAYER_SPEED;
     }
