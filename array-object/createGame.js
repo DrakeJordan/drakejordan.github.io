@@ -2,26 +2,30 @@ let buttonSize = 100; // Main button size
 let displayCodeSize = 50; // User picked code size
 let code = []; // User typed code
 
-let waitingForPlayer = false;
+let waitingForPlayer = false; // Is the user waiting for a player
 let playerJoined = false; // Track if a player has joined // Whether the user is waiting for a player or not
 
-let timeSet = false;
-let timing = 0;
-let playersSet = false;
-let playersReset = false;
+let timeSet = false; // Has the timer been set
+let timing = 0; // What is the timer at
+let playersSet = false; // Have the players been set
+let playersReset = false; // Have the player values been reset
 
+// Create game screen
 function createGameScreen() {
   textAlign(CENTER);
   textFont(semibold);
   fill(0);
   textSize(45);
 
-  // Title text with instructions
+  // Title text with instructions, shown if not waiting for other players
   if (!waitingForPlayer) {
     text("Create a Game Join Code", width / 2, height / 4);
   } 
   else {
+  // Title text with instructions, shown if waiting for other players
     text("Waiting For Player...", width / 2, height / 4);
+
+    // Convert the button array into a string that p5.party can use
     if (!sharedDataStoreCodeCreated) {
       sharedDataStoreCode = "";
       for (let item of code) {
@@ -38,7 +42,8 @@ function createGameScreen() {
           sharedDataStoreCode += "t";
         }
       }
-      console.log(sharedDataStoreCode);
+
+      // Connect to the server the user has picked
       sharedDataStore = partyLoadShared(sharedDataStoreCode, {
         p1x: width - 40,
         p1y: height/2,
@@ -55,16 +60,21 @@ function createGameScreen() {
       sharedDataStoreCodeCreated = true;
     }
 
+    // If the players have not been set, and the timer has not been set, create the player set timer
     if (!playersSet) {
       if (!timeSet) {
         timing = millis();
         timeSet = true;
       }
+
+      // Wait for p5.party connect, mark that server has one player
       if(millis() > timing + 3000) {
         sharedDataStore.activePlayers = 1;
         playersSet = true;
       }
     } 
+
+    // If server has two players, set player UUID and enter pregame waiting screne
     if (sharedDataStore.activePlayers === 2 && playersSet) {
       activePlayerUUID = random(10000000000);
       sharedDataStore.p1UUID = activePlayerUUID;
