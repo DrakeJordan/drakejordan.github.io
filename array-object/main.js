@@ -33,6 +33,7 @@ let circleButton;
 let buttonImages = [];
 
 let logo;
+let winnerIcon;
 
 let sharedDataStoreCode = "";
 let sharedDataStoreCodeCreated = false;
@@ -40,7 +41,8 @@ let sharedDataStoreCodeCreated = false;
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
   semibold = loadFont("SF-Pro-Display-Semibold.otf");
-  logo = loadImage("tempGameLogo.png");
+  logo = loadImage("images/logo.png");
+  winnerIcon = loadImage("images/winner.png");
 
   starButton = loadImage("images/star.button.png");
   heartButton = loadImage("images/heart.button.png");
@@ -58,10 +60,10 @@ function preload() {
     p2y: height/2,
     p1UUID: "",
     p2UUID: "",
-    activeTagger: 0,
     activePlayers: 0,
     gameWinner: 0,
-    gameCountdown: 0
+    gameCountdown: 0,
+    gameEndCountdown: 0
   });
 }
  
@@ -72,13 +74,6 @@ function setup() {
   sharedDataStoreCode = "";
 
   buttonImages = [starButton, triangleButton, heartButton, circleButton];
-  let randomTaggerNumeber = random(100); 
-  if (randomTaggerNumeber > 50) {
-    sharedDataStore.activeTagger = 1;
-  } 
-  else { 
-    sharedDataStore.activeTagger = 2;
-  }
 }
 
 function debugKeyActions() {
@@ -103,7 +98,7 @@ function draw() {
   background(255);
   debugKeyActions();
   textSize(15);
-  //text(sharedDataStore.activePlayers + " timing" + timing + timeSet, width / 2, 200);
+  //text(sharedDataStore.activePlayers, width / 2, 200);
   if (gameState === "titleScreen") {
     titleScreen();
   }  
@@ -117,10 +112,11 @@ function draw() {
     pregameScreen();
   }
   else if (gameState === "game" && sharedDataStore.gameWinner === 0) {
-    text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner + " State:" + gameState, 50, 50);
+    //text("P1: " + sharedDataStore.p1UUID + " " + "P2: " + sharedDataStore.p2UUID + " Active:" + activePlayerUUID + " Tagger:" + sharedDataStore.activeTagger + " Winner: " + sharedDataStore.gameWinner + " State:" + gameState, 50, 50);
     movePlayer();
     drawPlayers();
     checkCollision();
+    drawCountdown();
   }
   else if (gameState === "winnerScreen") {
     winnerScreen();

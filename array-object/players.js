@@ -1,3 +1,8 @@
+let gameEndTimer = 30;
+let gameEndTimerTime = 0;
+let gameEndTimerSet = false;
+
+
 function drawPlayers() {
   // Draw Player 1 as black
   fill(0);
@@ -6,6 +11,29 @@ function drawPlayers() {
   // Draw Player 2 as orange
   fill("orange");
   square(sharedDataStore.p2x, sharedDataStore.p2y, PLAYER_SIZE, 4);
+}
+
+function drawCountdown() {
+  if (gameEndTimer !== 0) {
+    textSize(70);
+    textFont(semibold);
+    text(gameEndTimer, width / 2 , height/2 + 190);
+  } 
+  else {
+    sharedDataStore.gameWinner = 2;
+    gameState = "winnerScreen";
+  }
+
+
+  if (!gameEndTimerSet){
+    gameEndTimerTime = millis();
+    gameEndTimerSet = true;
+  }
+
+  if (millis() > gameEndTimerTime + 1000) {
+    gameEndTimerTime = millis();
+    gameEndTimer -= 1;
+  }
 }
   
 function checkCollision() {

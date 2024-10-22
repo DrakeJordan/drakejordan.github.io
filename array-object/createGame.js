@@ -46,10 +46,10 @@ function createGameScreen() {
         p2y: height/2,
         p1UUID: "",
         p2UUID: "",
-        activeTagger: 0,
         activePlayers: 0,
         gameWinner: 0,
-        gameCountdown: 0
+        gameCountdown: 0,
+        gameEndCountdown: 0
       });
       sharedDataStoreCodeCreated = true;
     }

@@ -34,6 +34,6 @@ function keyPressed() {
     waitingForPlayer = true;
   }
   if (keyCode === TAB) {
-    gameState = "pregame";
+    gameState = "winnerScreen";
   }
 }

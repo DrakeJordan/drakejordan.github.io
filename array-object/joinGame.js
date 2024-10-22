@@ -37,10 +37,10 @@ function joinGameScreen() {
         p2y: height/2,
         p1UUID: "",
         p2UUID: "",
-        activeTagger: 0,
         activePlayers: sharedDataStore.activePlayers,
         gameWinner: 0,
-        gameCountdown: 0
+        gameCountdown: 0,
+        gameEndCountdown: 0
       });
       sharedDataStoreCodeCreated = true;
     }
