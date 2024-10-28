@@ -5,11 +5,31 @@
 // Extra for Experts:
 // - 
 
+let regular;
+let semibold;
+
+let logo;
+
+let gameState = "game";
+
+function preload() {
+  regular = loadFont("SF-Pro-Display-Regular.otf");
+  semibold = loadFont("SF-Pro-Display-Semibold.otf");
+
+  logo = loadImage("assets/logo.png");
+
+  createColorGrid();
+}
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+ 
 }
 
 function draw() {
-  background(220);
+  createCanvas(windowWidth, windowHeight);
+  if (gameState === "title") {
+    titleScreen();
+  } else {
+    gameScreen();
+  }
 }

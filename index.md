@@ -11,6 +11,8 @@
 - [Bubble Object](bubble)
 - [Sound Effect Demo](sound)
 - [Grid Demo](grid)
+- [Game of Life](game-of-life)
+- [Retangle Grid](rectangle-grid)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
