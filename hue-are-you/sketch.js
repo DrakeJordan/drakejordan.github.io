@@ -10,7 +10,7 @@ let semibold;
 
 let logo;
 
-let gameState = "game";
+let gameState = "title";
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
@@ -22,14 +22,15 @@ function preload() {
 }
 
 function setup() {
- 
+  colorMode(HSB);
 }
 
 function draw() {
   createCanvas(windowWidth, windowHeight);
   if (gameState === "title") {
     titleScreen();
-  } else {
+  } 
+  else {
     gameScreen();
   }
 }
