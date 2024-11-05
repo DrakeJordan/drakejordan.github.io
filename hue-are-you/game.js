@@ -9,6 +9,36 @@ function gameScreen() {
   drawColorGrid();
   updateColorGridSize();
   updateIsTileSelected();
+  drawGamePannel();
+  pickHueButton();
+}
+
+function drawGamePannel() {
+  fill(0);
+  textFont(semibold);
+  textSize(30);
+  textAlign(LEFT, CENTER);
+  text("Find your hue on the grid!", width / 1.44, 250);
+
+  image(gridIcon, width / 1.34, 50, gridIcon.width/6, gridIcon.height/6);
+}
+
+function pickHueButton() {
+  let isHovered = false;
+
+  if (mouseX >= width / 2 +250 && mouseX <= width / 2 +250 + 400 && mouseY >= height - 140 && mouseY <= height - 140 + 60) {
+    isHovered = true;
+  } 
+  else {
+    isHovered = false;
+  }
+  noStroke();
+  isHovered ? fill(64, 0, 25) : fill(0);
+  rect(width / 2 +250, height - 140, 400, 60, 18);
+  textFont(medium);
+  fill(255);
+  textSize(29);
+  text("Pick Hue", width / 2 + 395, height - 115);
 }
 
 function drawColorGrid() {

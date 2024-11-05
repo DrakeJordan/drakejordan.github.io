@@ -14,14 +14,18 @@ function titleScreen() {
   textSize(40);
   text("The color matching game", width / 2, 220);
 
+  fill(64,0,60);
+  textFont(regular);
+  textSize(22);
+  text("Press \"i\" for instructions", width / 2, height - 160);
+
   startGameButton();
-  instructionsButton();
 } 
 
 function startGameButton() {
   let isHovered = false;
 
-  if (mouseX >= width / 2 - 110 && mouseX <= width / 2 - 110 + 220 && mouseY >= height - 270 && mouseY <= height - 270 + 60) {
+  if (mouseX >= width / 2 - 110 && mouseX <= width / 2 - 110 + 220 && mouseY >= height - 250 && mouseY <= height - 250 + 60) {
     isHovered = true;
   } 
   else {
@@ -29,28 +33,9 @@ function startGameButton() {
   }
 
   isHovered ? fill(64, 0, 25) : fill(0);
-  rect(width / 2 - 110, height - 270, 220, 60, 18);
-  textFont(regular);
+  rect(width / 2 - 110, height - 250, 220, 60, 18);
+  textFont(medium);
   fill(255);
   textSize(29);
-  text("Start!", width / 2, height - 245);
-}
-
-function instructionsButton() {
-  let isHovered = false;
-
-  if (mouseX >= width / 2 - 74 && mouseX <= width / 2 - 74 + 150 && mouseY >= height - 180 && mouseY <= height - 180 + 50) {
-    isHovered = true;
-  } 
-  else {
-    isHovered = false;
-  }
-
-  isHovered ? fill(64, 0, 25) : fill(0);
-  rect(width / 2 - 74, height - 180, 150, 50, 100);
-
-  textFont(regular);
-  fill(255);
-  textSize(20);
-  text("Instructions", width / 2, height - 158);
+  text("Start!", width / 2, height - 224);
 }
