@@ -12,7 +12,7 @@ let semibold;
 let logo;
 let gridIcon; 
 
-let gameState = "title";
+let gameState = "game";
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");
@@ -26,7 +26,7 @@ function preload() {
 }
  
 function setup() {
-  colorMode(HSB, 360, 100, 100);
+  colorMode(HSB, 350, 100, 100);
 }
 
 function draw() {

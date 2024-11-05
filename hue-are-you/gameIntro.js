@@ -5,11 +5,11 @@ let hueGenTime = 0; // Start time of hue generation timer
 let initalHueGenTimeSet = false; // Has the hue generation timer been set
 let hueFound = false; // Has the hue generation timer ended
 
-let setOffHueMemTimer = false;
+let setOffHueMemTimer = false; // Has the hue memorization timer been set off by the first timer yet
 let hueMemTime = 0; // Start time of the hue memorization timer
 let initalHueMemTimeSet = false; // Has the hue memorization timer been set
 let hueMemed = false; // Has the hue memorization timer ended
-let hueMemCounter = 10;
+let hueMemCounter = 10; // Starting at 10, counting down to start the game
 
 function gameIntro() {
   textAlign(CENTER, CENTER);
