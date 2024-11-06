@@ -117,5 +117,3 @@ function toggleTile(squareX, squareY) {
     }
   } 
 }
-
-;

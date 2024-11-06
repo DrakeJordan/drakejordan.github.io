@@ -26,7 +26,7 @@ function preload() {
 }
  
 function setup() {
-  colorMode(HSB, 350, 100, 100);
+  colorMode(HSB, 360, 100, 100);
 }
 
 function draw() {
@@ -43,5 +43,8 @@ function draw() {
   }
   else if (gameState === "game") {
     gameScreen();
+  } 
+  else if (gameState === "results") {
+    tabulation();
   }
 }

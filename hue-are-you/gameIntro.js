@@ -19,13 +19,10 @@ function gameIntro() {
   textFont(semibold);
   text(hueFound ? "Hue found! Try to remember it..." : "Get ready... finding your hue", width / 2, 150);
 
-  textSize(20);
-  text(hueMemCounter + " "  + hueMemed + " " + hueMemTime + " " + initalHueMemTimeSet, width / 2, 200);
+  hueFill = (noise(perlinTime) * 495) -100;
+  saturationFill = noise(perlinTime+1000) * 100;
 
-  hue = noise(perlinTime) * 495;
-  saturation = noise(perlinTime+1000) * 100;
-
-  fill(hue-100, saturation, 100);
+  fill(hueFill, saturationFill, 100);
 
   if (!hueFound) {
     perlinTime += 0.005;
