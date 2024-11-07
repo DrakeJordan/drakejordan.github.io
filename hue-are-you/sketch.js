@@ -12,6 +12,10 @@ let semibold;
 let logo;
 let gridIcon; 
 
+let shockedReaction;
+let happyReaction;
+let sadReaction;
+
 let gameState = "game";
 
 function preload() {
@@ -21,6 +25,10 @@ function preload() {
 
   logo = loadImage("assets/logo.png");
   gridIcon = loadImage("assets/grid.icon.png");
+
+  shockedReaction = loadImage("assets/shock.png");
+  happyReaction = loadImage("assets/happy.png");
+  sadReaction = loadImage("assets/sad.png");
 
   createColorGrid();
 }
