@@ -25,16 +25,23 @@ function tabulation() {
   textFont(semibold);
   textSize(40);
   fill(0);
-  text(!hasScored ? "Interesting choice" + placePeriods(periodCount): "You scored " + score + "%!", width/2, height/2 - 300);
+  text(!hasScored ? "Interesting choice" + placePeriods(periodCount): "You scored " + Math.floor(score) + "%!", width/2, height/2 - 300);
 
   fill(currentlySelectedColor.r, currentlySelectedColor.g, currentlySelectedColor.b);
   square(width/2 - WAITING_COLOR_SIZE/2, height/2 - WAITING_COLOR_SIZE/2, WAITING_COLOR_SIZE, 45);
 
   if (hasScored) {
-    if (score < 40) {
+    if (score < 50) {
       image(sadReaction, width/2 - WAITING_COLOR_SIZE/2, height/2 - WAITING_COLOR_SIZE/2, WAITING_COLOR_SIZE, WAITING_COLOR_SIZE);
+    } 
+    else if (score > 50 && score < 90) {
+      image(happyReaction, width/2 - WAITING_COLOR_SIZE/2, height/2 - WAITING_COLOR_SIZE/2, WAITING_COLOR_SIZE, WAITING_COLOR_SIZE);
+    } 
+    else {
+      image(shockedReaction, width/2 - WAITING_COLOR_SIZE/2, height/2 - WAITING_COLOR_SIZE/2, WAITING_COLOR_SIZE, WAITING_COLOR_SIZE);
     }
   }
+  
 
   if (!periodPlaceTimeSet) {
     periodPlaceTime = millis();
@@ -57,6 +64,7 @@ function scoreDisplayTimer() {
     scoreDisplayTimeSet = true;
   }
   if (millis() > scoreDisplayTime + 9000) {
+    score = random(1,100);
     hasScored = true;
   }
 }

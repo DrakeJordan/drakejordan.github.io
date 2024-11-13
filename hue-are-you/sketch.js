@@ -16,7 +16,7 @@ let shockedReaction;
 let happyReaction;
 let sadReaction;
 
-let gameState = "game";
+let gameState = "title";
 
 function preload() {
   regular = loadFont("SF-Pro-Display-Regular.otf");

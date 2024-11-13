@@ -27,7 +27,7 @@ function drawGamePannel() {
   image(gridIcon, width / 1.34, 50, gridIcon.width/6, gridIcon.height/6);
 
   if (currentlySelectedColor !== undefined) {
-    fill(currentlySelectedColor.r, currentlySelectedColor.g, currentlySelectedColor.b);
+    fill(currentlySelectedColor.b, currentlySelectedColor.g, currentlySelectedColor.r);
     square(width/2 +360, height/2 - GAME_SELECTED_PREVIEW_SIZE/2, GAME_SELECTED_PREVIEW_SIZE, 35);
     textFont(regular);
     textSize(20);
@@ -62,7 +62,7 @@ function drawColorGrid() {
     for (let x = 0; x < GRID_SIZE; x++) {
       let posX = x * TILE_SIZE;
       let posY = y * TILE_SIZE;
-      fill(colorGrid[y][x].r, colorGrid[y][x].g, colorGrid[y][x].b);
+      fill(colorGrid[y][x].b, colorGrid[y][x].g, colorGrid[y][x].r);
       rect(posX, posY, TILE_SIZE, TILE_SIZE);
       if (colorGrid[y][x].isSelected) {
         fill(0);
@@ -89,9 +89,9 @@ function createColorGrid() {
 
 function createColorTile(col) {
   return {
-    r: red(col),
+    b: red(col),
     g: green(col),
-    b: blue(col),
+    r: blue(col),
     isSelected: false,
   };
 }
