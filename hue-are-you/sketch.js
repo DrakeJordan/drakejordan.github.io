@@ -11,6 +11,7 @@ let semibold;
 
 let logo;
 let gridIcon; 
+let resultsGridIcon;
 
 let shockedReaction;
 let happyReaction;
@@ -25,12 +26,14 @@ function preload() {
 
   logo = loadImage("assets/logo.png");
   gridIcon = loadImage("assets/grid.icon.png");
+  resultsGridIcon = loadImage("assets/results.grid.icon.png");
 
   shockedReaction = loadImage("assets/shock.png");
   happyReaction = loadImage("assets/happy.png");
   sadReaction = loadImage("assets/sad.png");
 
   createColorGrid();
+  pickRandomColorFromGrid();
 }
  
 function setup() {
@@ -43,9 +46,6 @@ function draw() {
   if (gameState === "title") {
     titleScreen();
   }
-  else if (gameState === "instructions") {
-    instructions();
-  }
   else if (gameState === "intro") {
     gameIntro();
   }
@@ -54,5 +54,8 @@ function draw() {
   } 
   else if (gameState === "results") {
     tabulation();
+  }
+  else if (gameState === "resultsGrid") {
+    resultsGrid();
   }
 }

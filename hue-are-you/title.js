@@ -17,7 +17,7 @@ function titleScreen() {
   fill(64,0,60);
   textFont(regular);
   textSize(22);
-  text("Press \"i\" for instructions", width / 2, height - 160);
+  text("Created by Drake Jordan", width / 2, height - 160);
 
   startGameButton();
 } 
