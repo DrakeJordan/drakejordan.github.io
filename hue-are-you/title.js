@@ -22,6 +22,7 @@ function titleScreen() {
   startGameButton();
 } 
 
+// Start game button
 function startGameButton() {
   let isHovered = false;
 

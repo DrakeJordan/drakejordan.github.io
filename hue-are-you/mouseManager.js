@@ -14,11 +14,29 @@ function mousePressed() {
 
   // Game "Pick Hue" button
   if (mouseX >= width / 2 +250 && mouseX <= width / 2 +250 + 400 && mouseY >= height - 140 && mouseY <= height - 140 + 60 && gameState === "game") {
+    if (!isSinglePlayer) {
+      if (partyIsHost()) {
+        shared.sharedHostHasPicked = true;
+      }
+      else {
+        shared.sharedGuestHasPicked = true;
+      }
+    }
     gameState = "results";
   }
 
   // "Check Grid" button
   if (mouseX >= width / 2 - 110 && mouseX <= width / 2 - 110 + 220 && mouseY >= height - 226 && mouseY <= height - 226 + 60 && gameState === "results") {
+    if (!isSinglePlayer) {
+      if (partyIsHost()) {
+        currentlySelectedColor = shared.sharedHostSelectedColor;
+        finalColor = shared.sharedFinalColor;
+      }
+      else {
+        currentlySelectedColor = shared.sharedGuestSelectedColor;
+        finalColor = shared.sharedFinalColor;
+      }
+    }
     gameState = "resultsGrid";
   }
 

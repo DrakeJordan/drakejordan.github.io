@@ -1,3 +1,4 @@
+// Show grid with game results
 function resultsGrid() {
   drawColorGrid();
   updateColorGridSize();
@@ -5,6 +6,7 @@ function resultsGrid() {
   goBackButton();
 }
 
+// Draw the results right hand information panel
 function drawResultsPannel() {
   fill(0);
   textFont(semibold);
@@ -14,6 +16,7 @@ function drawResultsPannel() {
   
   image(resultsGridIcon, width / 1.34, 50, gridIcon.width / 6, gridIcon.height / 6);
   
+  // Show user selected color compared to actual color
   if (currentlySelectedColor !== undefined && finalColor !== undefined) {
     text("Yours", width / 2 + 292, 580);
 
@@ -41,6 +44,7 @@ function drawResultsPannel() {
 
 }
 
+// Button to go back to results page
 function goBackButton() {
   let isHovered = false;
   
@@ -52,7 +56,7 @@ function goBackButton() {
   }
   noStroke();
   isHovered ? fill(64, 0, 25) : fill(0);
-  rect(width / 2 +250, height - 140, 400, 60, 18);
+  rect(width / 2 + 250, height - 140, 400, 60, 18);
   textFont(medium);
   fill(255);
   textSize(29);
