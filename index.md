@@ -14,8 +14,10 @@
 - [Game of Life](game-of-life)
 - [Retangle Grid](rectangle-grid)
 - [Walker OOP](walker)
-- [Walker OOP Array] (walker-oop-array)
+- [Walker OOP Array](walker-oop-array)
+- [Fireworks OOP](fireworks-oop)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
 - [Arrays and Object Notation](array-object)
+- [Grid Hue Are You?](hue-are-you)
