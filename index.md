@@ -20,6 +20,8 @@
 - [Collide 2D](collide)
 - [Local Storage](local-storage)
 - [Inheritance](inheritance)
+- [Fractal Circles](fractal-circles)
+- [Sierpinski Trinage](sierpinski)
 
 ## Projects
 - [Interactive Scene](interactive-scene)
